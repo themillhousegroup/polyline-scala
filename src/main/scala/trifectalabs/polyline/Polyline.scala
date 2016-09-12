@@ -43,9 +43,10 @@ object Polyline {
 
   def decode(polyline: String): Seq[LatLng] = {
     decodeDifferences(polyline, Nil).foldRight[Seq[LatLng]](Nil)({(diff, acc) =>
-      acc match {
-        case Nil => Seq(LatLng(diff._1, diff._2))
-        case coordinates => LatLng(coordinates.head.lat + diff._1, coordinates.head.lng + diff._2)+:coordinates
+      acc.headOption.fold {
+        Seq(LatLng(diff._1, diff._2))
+      } { head =>
+        LatLng(head.lat + diff._1, head.lng + diff._2)+:acc
       }
     }).reverse
   }
