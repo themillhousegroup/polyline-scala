@@ -1,6 +1,5 @@
-package main
+package trifectalabs.polyline
 
-import main.{Polyline, LatLng}
 import org.scalatest.WordSpec
 
 class PolylineTest extends WordSpec {
